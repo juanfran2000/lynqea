@@ -16,8 +16,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all"
     >

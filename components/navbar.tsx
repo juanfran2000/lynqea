@@ -102,9 +102,9 @@ export function Navbar() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 bg-white md:hidden z-40"
+          className="fixed inset-0 bg-white md:hidden z-40 flex items-center justify-center min-h-screen"
         >
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className="flex flex-col items-center justify-center h-full w-full py-20">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.path}
@@ -112,11 +112,12 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ delay: index * 0.1 }}
+                className="w-full text-center"
               >
                 <Link
                   href={item.path}
                   className={cn(
-                    "py-4 px-8 text-2xl font-medium transition-colors duration-200",
+                    "py-6 px-8 text-2xl font-medium transition-colors duration-200 block w-full",
                     pathname === item.path
                       ? "text-blue-600"
                       : "text-gray-700 hover:text-blue-600"

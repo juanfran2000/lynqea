@@ -20,7 +20,7 @@ export function ContactInfo() {
     },
     {
       icon: <MapPin className="h-5 w-5" />,
-      title: "Quito, Ecuador",
+      title: "Ubicación",
       value: "Quito, Ecuador",
       link: null,
     },

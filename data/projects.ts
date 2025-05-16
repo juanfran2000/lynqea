@@ -16,7 +16,7 @@ export const projects: Project[] = [
     title: "Veterinaria",
     description: "Portal veterinario con interfaz intuitiva y carrusel interactivo de mascotas.",
     longDescription: "Diseñamos una experiencia digital acogedora para una clínica veterinaria en Argentina. El sitio destaca por su hero section con un carrusel dinámico que muestra adorables mascotas en tratamiento, creando una conexión emocional inmediata con los visitantes. La interfaz simplifica la programación de citas y el acceso a servicios veterinarios, priorizando la facilidad de uso para los dueños de mascotas.",
-    imageUrl: "/caratulas/vet.png",
+    imageUrl: "/caratulas/petAttention.png",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
     featured: true,
     link: "https://vet-nu.vercel.app/"

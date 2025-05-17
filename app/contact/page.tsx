@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { ContactForm } from "@/components/contact/contact-form";
 import { ContactInfo } from "@/components/contact/contact-info";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Contacto | Lynqea",
@@ -21,7 +22,9 @@ export default function ContactPage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <ContactForm />
+          <Suspense fallback={<div>Cargando formulario...</div>}>
+            <ContactForm />
+          </Suspense>
           <ContactInfo />
         </div>
       </div>

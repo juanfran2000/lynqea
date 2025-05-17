@@ -18,6 +18,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle } from "lucide-react";
 import emailjs from "@emailjs/browser";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, {
@@ -32,6 +41,7 @@ const contactFormSchema = z.object({
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
+  plan: z.string().optional(),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -39,6 +49,8 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const searchParams = useSearchParams();
+  const planFromUrl = searchParams.get("plan");
 
   useEffect(() => {
     emailjs.init("ZAiLm3EwP3B-P02FG");
@@ -51,6 +63,7 @@ export function ContactForm() {
       email: "",
       subject: "",
       message: "",
+      plan: planFromUrl || "",
     },
   });
 
@@ -62,7 +75,10 @@ export function ContactForm() {
         name: data.name,
         email: data.email,
         title: data.subject,
-        message: data.message,
+        message: `${data.message}\n\nPlan seleccionado: ${
+          data.plan || "No especificado"
+        }`,
+        plan: data.plan || "No especificado",
         time: new Date().toLocaleString("es-EC", {
           weekday: "long",
           year: "numeric",
@@ -75,7 +91,7 @@ export function ContactForm() {
 
       const response = await emailjs.send(
         "default_service",
-        "template_yvo9v7b", // Actualizado con el nuevo template ID
+        "template_yvo9v7b",
         templateParams
       );
 
@@ -123,6 +139,43 @@ export function ContactForm() {
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="plan"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Plan Seleccionado</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={!!planFromUrl}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecciona un plan" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="profesional">
+                        Plan Profesional
+                      </SelectItem>
+                      <SelectItem value="empresarial">
+                        Plan Empresarial
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex justify-end">
+              <Link
+                href="/pricing"
+                className="text-sm text-blue-600 hover:text-blue-700"
+              >
+                Ver planes
+              </Link>
+            </div>
             <FormField
               control={form.control}
               name="name"

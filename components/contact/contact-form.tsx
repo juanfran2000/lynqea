@@ -75,7 +75,9 @@ export function ContactForm() {
         name: data.name,
         email: data.email,
         title: data.subject,
-        message: data.message,
+        message: `${data.message}\n\nPlan seleccionado: ${
+          data.plan || "No especificado"
+        }`,
         plan: data.plan || "No especificado",
         time: new Date().toLocaleString("es-EC", {
           weekday: "long",
